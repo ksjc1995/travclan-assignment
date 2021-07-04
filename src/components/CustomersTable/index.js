@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import DataTable from "../DataTable/";
 import CustomersDataContext from "../../contexts/CustomersDataContext";
@@ -6,6 +7,7 @@ import Switch from "@material-ui/core/Switch";
 
 export default function CustomersTable() {
   const rows = useContext(CustomersDataContext);
+  const history = useHistory();
   const [isMinBidDisplayed, setIsMinBidDisplayed] = useState(false);
 
   const getColumns = (isMinBidDisplayed) => {
@@ -100,6 +102,10 @@ export default function CustomersTable() {
           },
         ]}
         rowsPerPageOptions={[5, 25, 50]}
+        onRowClick={(params) => {
+          console.log(params);
+          history.push({ pathname: "/bids", state: params.row });
+        }}
       />
     </>
   );
